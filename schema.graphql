@@ -1,0 +1,95 @@
+type tokenWhiteListed @entity {
+
+  id: ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  token: String!
+
+  isWhitelisted: Boolean!
+
+  minBidIncrement: BigInt!
+
+}
+
+type nftWhiteListed @entity {
+
+  id: ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  token: String!
+
+  isWhitelisted: Boolean!
+
+}
+
+type maxNFTCountChanged @entity {
+
+  id: ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  newMaxNFTCount: BigInt!
+
+}
+
+type zoomBurnFeeChanged @entity {
+
+  id: ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  newZoomBurnFee: BigInt!
+
+}
+
+type auctionMaxTimeChanged @entity {
+
+  id: ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  newMaxAuctionTime: BigInt!
+
+}
+
+type NFTTokenId @jsonField {
+  tokenId : BigInt
+}
+
+type itemListed @entity {
+
+  id: ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  itemNumber: BigInt!
+
+  auctionEnd: Date!
+
+  seller: String!
+
+  tokenIds: [NFTTokenId]
+
+  saleToken: String!
+
+  nftToken: String!
+
+  minPrice: BigInt!
+
+  zoomBurned: BigInt!
+
+}
