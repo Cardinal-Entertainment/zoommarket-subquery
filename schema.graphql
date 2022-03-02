@@ -79,7 +79,7 @@ type ItemListed @entity {
 
   itemNumber: BigInt!
 
-  auctionEnd: Date!
+  auctionEnd: BigInt!
 
   seller: String!
 

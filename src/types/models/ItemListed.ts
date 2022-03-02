@@ -26,7 +26,7 @@ export class ItemListed implements Entity {
 
     public itemNumber: bigint;
 
-    public auctionEnd: Date;
+    public auctionEnd: bigint;
 
     public seller: string;
 
