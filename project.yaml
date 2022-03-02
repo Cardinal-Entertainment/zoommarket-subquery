@@ -63,3 +63,15 @@ dataSources:
           filter:
             topics:
               - ItemListed(uint256 indexed itemNumber, uint256 auctionEnd, address indexed seller, uint256[] tokenIds, address saleToken, address indexed nftToken, uint256 minPrice, uint256 zoomBurned)
+
+        - handler: handleBidPlaced
+          kind: substrate/MoonbeamEvent
+          filter:
+            topics:
+              - Bid(uint256 indexed itemNumber, uint256 bidAmount, address indexed bidder, uint256[] tokenIds)
+
+        - handler: handleItemSettled
+          kind: substrate/MoonbeamEvent
+          filter:
+            topics:
+              - Settled(uint256 indexed itemNumber, address nftToken, address saleToken, uint256 bidAmount, address indexed winner, address indexed seller, address royaltyReceiver, uint256 royaltyAmount, uint256[] tokenIds)

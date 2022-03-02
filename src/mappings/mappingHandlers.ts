@@ -1,4 +1,4 @@
-import { TokenWhiteListed,NftWhiteListed,MaxNFTCountChanged,ZoomBurnFeeChanged,AuctionMaxTimeChanged,ItemListed} from "../types";
+import { TokenWhiteListed,NftWhiteListed,MaxNFTCountChanged,ZoomBurnFeeChanged,AuctionMaxTimeChanged,ItemListed,Bid,Settled} from "../types";
 import { NFTTokenId } from '../types/interfaces'
 import { MoonbeamEvent } from '@subql/contract-processors/dist/moonbeam';
 import { BigNumber } from "ethers";
@@ -9,8 +9,9 @@ type NftWhiteListedEventArgs = [string, Boolean] & { token: string; isWhiteliste
 type MaxNFTCountChangedEventArgs = [BigNumber] & {newMaxNFTCount: bigint; }
 type ZoomBurnFeeChangedEventArgs = [BigNumber] & {newZoomBurnFee: bigint; };
 type AuctionMaxTimeChangedEventArgs = [BigNumber] & {newMaxAuctionTime: bigint; };
-type ItemListedEventArgs = [BigNumber, BigNumber, string, [NFTTokenId], string, string, BigNumber, BigNumber] & {itemNumber: bigint; auctionEnd: bigint; seller:string; tokenIds:[NFTTokenId]; saleToken: string; nftToken:string; minPrice:bigint; zoomBurned:bigint};
-
+type ItemListedEventArgs = [BigNumber, BigNumber, string, [NFTTokenId], string, string, BigNumber, BigNumber] & {itemNumber: bigint; auctionEnd: bigint; seller:string; tokenIds:[NFTTokenId]; saleToken: string; nftToken:string; minPrice:bigint; zoomBurned:bigint; };
+type BidPlacedEventArgs = [BigNumber, string, [NFTTokenId]] & {itemNumber: bigint; bidder:string; tokenIds:[NFTTokenId]; };
+type ItemSettledEventArgs = [BigNumber, string, string, BigNumber, string, string, string, BigNumber, [NFTTokenId]] & {itemNumber: bigint; nftToken:string; saleToken:string; bidAmount:bigint; winner:string; seller:string; royaltyReceiver:string; royaltyAmount:bigint; tokenIds:[NFTTokenId]; };
 
 export async function handleTokenWhiteListedEvent(event: MoonbeamEvent<TokenWhiteListedEventArgs>): Promise<void> {
   const twl = new TokenWhiteListed(event.transactionHash);
@@ -73,6 +74,34 @@ export async function handleItemListed(event: MoonbeamEvent<ItemListedEventArgs>
   il.nftToken = event.args.nftToken;
   il.minPrice = event.args.minPrice;
   il.zoomBurned = event.args.zoomBurned;
+
+  await il.save();
+}
+
+export async function handleBidPlaced(event: MoonbeamEvent<BidPlacedEventArgs>): Promise<void> {
+  const il = new Bid(event.transactionHash);
+  il.blockNumber = Math.trunc(event.blockNumber);
+  il.blockTimestamp = event.blockTimestamp;
+  il.itemNumber = event.args.itemNumber;
+  il.bidder = event.args.bidder;
+  il.tokenIds = event.args.tokenIds;
+
+  await il.save();
+}
+
+export async function handleItemSettled(event: MoonbeamEvent<ItemSettledEventArgs>): Promise<void> {
+  const il = new Settled(event.transactionHash);
+  il.blockNumber = Math.trunc(event.blockNumber);
+  il.blockTimestamp = event.blockTimestamp;
+  il.itemNumber = event.args.itemNumber;
+  il.nftToken = event.args.nftToken;
+  il.saleToken = event.args.saleToken;
+  il.bidAmount = event.args.bidAmount;
+  il.winner = event.args.winner;
+  il.seller = event.args.seller;
+  il.royaltyReceiver = event.args.royaltyReceiver;
+  il.royaltyAmount = event.args.royaltyAmount;
+  il.tokenIds = event.args.tokenIds;
 
   await il.save();
 }

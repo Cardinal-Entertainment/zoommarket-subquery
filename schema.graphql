@@ -94,3 +94,46 @@ type ItemListed @entity {
   zoomBurned: BigInt!
 
 }
+
+type Bid @entity {
+
+  id: ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  itemNumber: BigInt!
+
+  bidder: String!
+
+  tokenIds: [NFTTokenId]
+
+}
+
+type Settled @entity {
+
+  id:ID!
+
+  blockNumber: Int
+
+  blockTimestamp: Date!
+
+  itemNumber: BigInt!
+
+  nftToken: String!
+
+  saleToken: String!
+
+  bidAmount: BigInt!
+
+  winner: String!
+
+  seller: String!
+
+  royaltyReceiver: String!
+
+  royaltyAmount: BigInt!
+
+  tokenIds: [NFTTokenId]
+}
