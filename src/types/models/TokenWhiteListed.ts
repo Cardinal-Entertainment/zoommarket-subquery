@@ -30,16 +30,16 @@ export class TokenWhiteListed implements Entity {
     async save(): Promise<void>{
         let id = this.id;
         assert(id !== null, "Cannot save TokenWhiteListed entity without an ID");
-        await store.set('tokenWhiteListed', id.toString(), this);
+        await store.set('TokenWhiteListed', id.toString(), this);
     }
     static async remove(id:string): Promise<void>{
         assert(id !== null, "Cannot remove TokenWhiteListed entity without an ID");
-        await store.remove('tokenWhiteListed', id.toString());
+        await store.remove('TokenWhiteListed', id.toString());
     }
 
     static async get(id:string): Promise<TokenWhiteListed | undefined>{
         assert((id !== null && id !== undefined), "Cannot get TokenWhiteListed entity without an ID");
-        const record = await store.get('tokenWhiteListed', id.toString());
+        const record = await store.get('TokenWhiteListed', id.toString());
         if (record){
             return TokenWhiteListed.create(record as TokenWhiteListedProps);
         }else{

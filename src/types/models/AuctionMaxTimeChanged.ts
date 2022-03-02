@@ -26,16 +26,16 @@ export class AuctionMaxTimeChanged implements Entity {
     async save(): Promise<void>{
         let id = this.id;
         assert(id !== null, "Cannot save AuctionMaxTimeChanged entity without an ID");
-        await store.set('auctionMaxTimeChanged', id.toString(), this);
+        await store.set('AuctionMaxTimeChanged', id.toString(), this);
     }
     static async remove(id:string): Promise<void>{
         assert(id !== null, "Cannot remove AuctionMaxTimeChanged entity without an ID");
-        await store.remove('auctionMaxTimeChanged', id.toString());
+        await store.remove('AuctionMaxTimeChanged', id.toString());
     }
 
     static async get(id:string): Promise<AuctionMaxTimeChanged | undefined>{
         assert((id !== null && id !== undefined), "Cannot get AuctionMaxTimeChanged entity without an ID");
-        const record = await store.get('auctionMaxTimeChanged', id.toString());
+        const record = await store.get('AuctionMaxTimeChanged', id.toString());
         if (record){
             return AuctionMaxTimeChanged.create(record as AuctionMaxTimeChangedProps);
         }else{

@@ -1,4 +1,4 @@
-type tokenWhiteListed @entity {
+type TokenWhiteListed @entity {
 
   id: ID!
 
@@ -14,7 +14,8 @@ type tokenWhiteListed @entity {
 
 }
 
-type nftWhiteListed @entity {
+
+type NftWhiteListed @entity {
 
   id: ID!
 
@@ -28,7 +29,7 @@ type nftWhiteListed @entity {
 
 }
 
-type maxNFTCountChanged @entity {
+type MaxNFTCountChanged @entity {
 
   id: ID!
 
@@ -40,7 +41,7 @@ type maxNFTCountChanged @entity {
 
 }
 
-type zoomBurnFeeChanged @entity {
+type ZoomBurnFeeChanged @entity {
 
   id: ID!
 
@@ -52,7 +53,7 @@ type zoomBurnFeeChanged @entity {
 
 }
 
-type auctionMaxTimeChanged @entity {
+type AuctionMaxTimeChanged @entity {
 
   id: ID!
 
@@ -68,7 +69,7 @@ type NFTTokenId @jsonField {
   tokenId : BigInt
 }
 
-type itemListed @entity {
+type ItemListed @entity {
 
   id: ID!
 

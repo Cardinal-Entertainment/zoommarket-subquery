@@ -2,15 +2,15 @@
 
 // Auto-generated , DO NOT EDIT
 
-export {TokenWhiteListed} from "./tokenWhiteListed"
+export {TokenWhiteListed} from "./TokenWhiteListed"
 
-export {NftWhiteListed} from "./nftWhiteListed"
+export {NftWhiteListed} from "./NftWhiteListed"
 
-export {MaxNFTCountChanged} from "./maxNFTCountChanged"
+export {MaxNFTCountChanged} from "./MaxNFTCountChanged"
 
-export {ZoomBurnFeeChanged} from "./zoomBurnFeeChanged"
+export {ZoomBurnFeeChanged} from "./ZoomBurnFeeChanged"
 
-export {AuctionMaxTimeChanged} from "./auctionMaxTimeChanged"
+export {AuctionMaxTimeChanged} from "./AuctionMaxTimeChanged"
 
-export {ItemListed} from "./itemListed"
+export {ItemListed} from "./ItemListed"
 

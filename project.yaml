@@ -1,109 +1,65 @@
 specVersion: 0.2.0
-name: zoombies-subquery
+name: zoommarket-subquery
 version: 1.0.0
-description: Zoom Token mint, burn and approvals, Zoombies NFT events on Moonriver
-repository: https://github.com/ryanprice/zoombies-subquery
+description: Zoom NFT Market on Moonbase
+repository: https://github.com/ryanprice/zoommarket-subquery
 schema:
   file: ./schema.graphql
 network:
-  genesisHash: '0x401a1f9dca3da46f5c4091016c8a2f26dcea05865116b286f60f668207d1474b' # Genesis hash of Moonriver
-  endpoint: wss://moonriver.api.onfinality.io/ws?apikey=2c862d3c-611b-42fb-be0c-638f60da7993
-  dictionary: 'https://api.subquery.network/sq/subquery/moonriver-dictionary'
+  genesisHash: '0x91bc6e169807aaa54802737e1c504b2577d4fafedd5a02c10293b1cd60e39527' # Genesis hash of Moonbase
+  endpoint: wss://moonbeam-alpha.api.onfinality.io/public-ws
+  dictionary: 'https://api.subquery.network/sq/subquery/moonbase-alpha-dictionary'
 
   chaintypes:
     file: "./types.yaml"
 
 dataSources:
   - kind: substrate/Moonbeam
-    startBlock: 442090
+    startBlock: 1781824
     processor:
       file: './node_modules/@subql/contract-processors/dist/moonbeam.js'
       options:
         # Must be a key of assets
-        abi: "erc20"
-        address: "0x8bd5180Ccdd7AE4aF832c8C03e21Ce8484A128d4"
+        abi: "market"
+        address: "0xd00d7b22deD10Fde1c94Be9E6D55D7190CCADD7F"
     assets:
-      erc20:
-        file: "./erc20.abi.json"
+      market:
+        file: "./ZoombiesMarketPlace.json"
     mapping:
       file: './dist/index.js'
       handlers:
-        - handler: handleMoonriverEvent
+        - handler: handleTokenWhiteListedEvent
           kind: substrate/MoonbeamEvent
           filter:
-            ## Topics that follow Ethereum JSON-RPC log filters
-            ## https://docs.ethers.io/v5/concepts/events/
-            ## With a couple of added benefits:
-            ##  - Values don't need to be 0 padded
-            ##  - Event fragments can be provided and automatically converted to their id
             topics:
-              ## Example valid values:
-              # - '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
-              # - Transfer(address,address,u256)
-              # - Transfer(address from,address to,uint256 value)
+              - tokenWhiteListed(address token, bool isWhitelisted, uint minBidIncrement)
 
-              ## Example of OR filter, will capture Transfer or Approval events
-              # - - 'Transfer(address indexed from,address indexed to,uint256 value)'
-              #   - 'Approval(address indexed owner, address indexed spender, uint256 value)'
+        - handler: handleNftWhiteListed
+          kind: substrate/MoonbeamEvent
+          filter:
+            topics:
+              - nftWhiteListed(address token, bool isWhitelisted)
 
-              - Transfer(address indexed from,address indexed to,uint256 value)
-              ## topics[1] to topics[3] are the indexed values
-              - null
-              - null
-              - null
-  - kind: substrate/Moonbeam
-    startBlock: 442090
-    processor:
-      file: './node_modules/@subql/contract-processors/dist/moonbeam.js'
-      options:
-        # Must be a key of assets
-        abi: erc721
-        address: "0x08716e418e68564c96b68192e985762740728018"
-    assets:
-      erc721:
-        file: './zoombies.json'
-    mapping:
-      file: './dist/index.js'
-      handlers:
-        # LogCardMinted(address indexed buyer, uint tokenId, uint32 indexed cardTypeId, uint editionNumber)
-        - handler: handleLogCardMintedEvent
+        - handler: handleMaxNFTCountChanged
           kind: substrate/MoonbeamEvent
           filter:
             topics:
-              - LogCardMinted(address indexed buyer, uint tokenId, uint32 indexed cardTypeId, uint editionNumber)
-        # LogPackOpened(address indexed buyer, uint8 rarity)
-        - handler: handleLogPackOpenedEvent
+              - maxNFTCountChanged(uint256 newMaxNFTCount)
+
+        - handler: handleZoomBurnFeeChanged
           kind: substrate/MoonbeamEvent
           filter:
             topics:
-              - LogPackOpened(address indexed buyer, uint8 rarity)
-        # LogSponsorReward(address sponsor, address affiliate, uint zoomReward)
-        - handler: handleLogSponsorRewardEvent
+              - zoomBurnFeeChanged(uint256 newZoomBurnFee)
+
+        - handler: handleAuctionMaxTimeChanged
           kind: substrate/MoonbeamEvent
           filter:
             topics:
-              - LogSponsorReward(address sponsor, address affiliate, uint zoomReward)
-        # LogDailyReward(address player, uint newBoosterBalance)
-        - handler: handleLogDailyRewardEvent
+              - auctionMaxTimeChanged(uint256 newMaxAuctionTime);
+
+        - handler: handleItemListed
           kind: substrate/MoonbeamEvent
           filter:
             topics:
-              - LogDailyReward(address player, uint newBoosterBalance)
-        # LogRewardBoosters(address winner, uint boostersAwarded)
-        - handler: handleLogRewardBoostersEvent
-          kind: substrate/MoonbeamEvent
-          filter:
-            topics:
-              - LogRewardBoosters(address winner, uint boostersAwarded)
-        # LogSacrificeNFT(address owner, uint256 tokenId, uint16 cardTypeId, uint256 zoomGained)
-        - handler: handleLogSacrificeNFTEvent
-          kind: substrate/MoonbeamEvent
-          filter:
-            topics:
-              - LogSacrificeNFT(address owner, uint256 tokenId, uint16 cardTypeId, uint256 zoomGained)
-        # Transfer(address indexed from, address indexed to, uint256 indexed tokenId)
-        - handler: handleNFTTransferEvent
-          kind: substrate/MoonbeamEvent
-          filter:
-            topics:
-              - Transfer(address indexed from, address indexed to, uint256 indexed tokenId)
+              - ItemListed(uint256 indexed itemNumber, uint256 auctionEnd, address indexed seller, uint256[] tokenIds, address saleToken, address indexed nftToken, uint256 minPrice, uint256 zoomBurned)

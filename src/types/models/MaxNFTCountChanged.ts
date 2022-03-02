@@ -26,16 +26,16 @@ export class MaxNFTCountChanged implements Entity {
     async save(): Promise<void>{
         let id = this.id;
         assert(id !== null, "Cannot save MaxNFTCountChanged entity without an ID");
-        await store.set('maxNFTCountChanged', id.toString(), this);
+        await store.set('MaxNFTCountChanged', id.toString(), this);
     }
     static async remove(id:string): Promise<void>{
         assert(id !== null, "Cannot remove MaxNFTCountChanged entity without an ID");
-        await store.remove('maxNFTCountChanged', id.toString());
+        await store.remove('MaxNFTCountChanged', id.toString());
     }
 
     static async get(id:string): Promise<MaxNFTCountChanged | undefined>{
         assert((id !== null && id !== undefined), "Cannot get MaxNFTCountChanged entity without an ID");
-        const record = await store.get('maxNFTCountChanged', id.toString());
+        const record = await store.get('MaxNFTCountChanged', id.toString());
         if (record){
             return MaxNFTCountChanged.create(record as MaxNFTCountChangedProps);
         }else{

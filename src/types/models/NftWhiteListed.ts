@@ -28,16 +28,16 @@ export class NftWhiteListed implements Entity {
     async save(): Promise<void>{
         let id = this.id;
         assert(id !== null, "Cannot save NftWhiteListed entity without an ID");
-        await store.set('nftWhiteListed', id.toString(), this);
+        await store.set('NftWhiteListed', id.toString(), this);
     }
     static async remove(id:string): Promise<void>{
         assert(id !== null, "Cannot remove NftWhiteListed entity without an ID");
-        await store.remove('nftWhiteListed', id.toString());
+        await store.remove('NftWhiteListed', id.toString());
     }
 
     static async get(id:string): Promise<NftWhiteListed | undefined>{
         assert((id !== null && id !== undefined), "Cannot get NftWhiteListed entity without an ID");
-        const record = await store.get('nftWhiteListed', id.toString());
+        const record = await store.get('NftWhiteListed', id.toString());
         if (record){
             return NftWhiteListed.create(record as NftWhiteListedProps);
         }else{

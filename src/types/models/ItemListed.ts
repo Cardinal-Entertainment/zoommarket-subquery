@@ -44,16 +44,16 @@ export class ItemListed implements Entity {
     async save(): Promise<void>{
         let id = this.id;
         assert(id !== null, "Cannot save ItemListed entity without an ID");
-        await store.set('itemListed', id.toString(), this);
+        await store.set('ItemListed', id.toString(), this);
     }
     static async remove(id:string): Promise<void>{
         assert(id !== null, "Cannot remove ItemListed entity without an ID");
-        await store.remove('itemListed', id.toString());
+        await store.remove('ItemListed', id.toString());
     }
 
     static async get(id:string): Promise<ItemListed | undefined>{
         assert((id !== null && id !== undefined), "Cannot get ItemListed entity without an ID");
-        const record = await store.get('itemListed', id.toString());
+        const record = await store.get('ItemListed', id.toString());
         if (record){
             return ItemListed.create(record as ItemListedProps);
         }else{
