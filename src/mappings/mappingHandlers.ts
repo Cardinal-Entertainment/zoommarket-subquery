@@ -11,7 +11,7 @@ import {
 import { MoonbeamEvent } from "@subql/contract-processors/dist/moonbeam";
 import { BigNumber } from "ethers";
 
-// import { getAndStoreCardForItem } from "../utils/cardUtil";
+import { getAndStoreCardForItem } from "../utils/cardUtil";
 
 // Setup types from ABI
 type TokenWhiteListedEventArgs = [string, Boolean, BigNumber] & {
@@ -149,11 +149,11 @@ export async function handleItemListed(
     il.zoomBurned = event.args.zoomBurned;
 
     logger.info("Trying to fetch cards");
-    // await getAndStoreCardForItem(
-    //   event.args.tokenIds.map((tokenId) => tokenId.toString()),
-    //   event.args.itemNumber.toString(),
-    //   event.args.nftToken
-    // );
+    await getAndStoreCardForItem(
+      event.args.tokenIds.map((tokenId) => tokenId.toString()),
+      event.args.itemNumber.toString(),
+      event.args.nftToken
+    );
     // const result = await fetch("https://jsonplaceholder.typicode.com/todos/1");
     // const json = await result.json();
     // logger.info(json.title);
