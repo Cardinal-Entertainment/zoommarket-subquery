@@ -1,5 +1,4 @@
 type TokenWhiteListed @entity {
-
   id: ID!
 
   blockNumber: Int
@@ -11,12 +10,9 @@ type TokenWhiteListed @entity {
   isWhitelisted: Boolean!
 
   minBidIncrement: BigInt!
-
 }
 
-
 type NftWhiteListed @entity {
-
   id: ID!
 
   blockNumber: Int
@@ -26,11 +22,9 @@ type NftWhiteListed @entity {
   token: String!
 
   isWhitelisted: Boolean!
-
 }
 
 type MaxNFTCountChanged @entity {
-
   id: ID!
 
   blockNumber: Int
@@ -38,11 +32,9 @@ type MaxNFTCountChanged @entity {
   blockTimestamp: Date!
 
   newMaxNFTCount: BigInt!
-
 }
 
 type ZoomBurnFeeChanged @entity {
-
   id: ID!
 
   blockNumber: Int
@@ -50,11 +42,9 @@ type ZoomBurnFeeChanged @entity {
   blockTimestamp: Date!
 
   newZoomBurnFee: BigInt!
-
 }
 
 type AuctionMaxTimeChanged @entity {
-
   id: ID!
 
   blockNumber: Int
@@ -62,15 +52,9 @@ type AuctionMaxTimeChanged @entity {
   blockTimestamp: Date!
 
   newMaxAuctionTime: BigInt!
-
-}
-
-type NFTTokenId @jsonField {
-  tokenId : BigInt
 }
 
 type ItemListed @entity {
-
   id: ID!
 
   blockNumber: Int
@@ -83,7 +67,7 @@ type ItemListed @entity {
 
   seller: String!
 
-  tokenIds: [NFTTokenId]
+  tokenIds: [String]
 
   saleToken: String!
 
@@ -92,11 +76,51 @@ type ItemListed @entity {
   minPrice: BigInt!
 
   zoomBurned: BigInt!
+}
 
+type AuctionCards @entity {
+  id: ID!
+
+  itemNumber: BigInt!
+
+  name: String!
+
+  cardOrigin: String!
+
+  rarity: String!
+
+  isNotZoombies: Boolean!
+
+  tokenId: BigInt!
+
+  image: String
+
+  description: String
+
+  typeId: String
+
+  cardSet: String
+
+  zombieType: String
+
+  editionCurrent: BigInt
+
+  editionTotal: BigInt
+
+  cardLevel: BigInt
+
+  originalCost: BigInt
+
+  earnCZXP: BigInt
+
+  sacrificeCZXP: BigInt
+
+  unlockCZXP: BigInt
+
+  releaseTime: BigInt
 }
 
 type Bid @entity {
-
   id: ID!
 
   blockNumber: Int
@@ -107,13 +131,11 @@ type Bid @entity {
 
   bidder: String!
 
-  tokenIds: [NFTTokenId]
-
+  tokenIds: [String]
 }
 
 type Settled @entity {
-
-  id:ID!
+  id: ID!
 
   blockNumber: Int
 
@@ -135,5 +157,5 @@ type Settled @entity {
 
   royaltyAmount: BigInt!
 
-  tokenIds: [NFTTokenId]
+  tokenIds: [String]
 }

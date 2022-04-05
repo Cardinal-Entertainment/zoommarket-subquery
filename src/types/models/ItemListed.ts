@@ -2,10 +2,6 @@
 import {Entity, FunctionPropertyNames} from "@subql/types";
 import assert from 'assert';
 
-import {
-    NFTTokenId,
-} from '../interfaces'
-
 
 
 
@@ -30,7 +26,7 @@ export class ItemListed implements Entity {
 
     public seller: string;
 
-    public tokenIds?: NFTTokenId[];
+    public tokenIds?: string[];
 
     public saleToken: string;
 

@@ -31,11 +31,14 @@ services:
     command:
       - -f=/app
       - --db-schema=app
-      - --batch-size=40
+      - --unsafe
+      # Uncomment force-clean for dev. This allows starting with a clean DB.
+      # - --force-clean
+      - --batch-size=20
     healthcheck:
       test: ["CMD", "curl", "-f", "http://subquery-node:3000/ready"]
-      interval: 5s
-      timeout: 5s
+      interval: 10s
+      timeout: 10s
       retries: 5
 
   graphql-engine:

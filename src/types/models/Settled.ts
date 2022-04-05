@@ -2,10 +2,6 @@
 import {Entity, FunctionPropertyNames} from "@subql/types";
 import assert from 'assert';
 
-import {
-    NFTTokenId,
-} from '../interfaces'
-
 
 
 
@@ -40,7 +36,7 @@ export class Settled implements Entity {
 
     public royaltyAmount: bigint;
 
-    public tokenIds?: NFTTokenId[];
+    public tokenIds?: string[];
 
 
     async save(): Promise<void>{

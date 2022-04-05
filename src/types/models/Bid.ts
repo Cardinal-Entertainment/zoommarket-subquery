@@ -2,10 +2,6 @@
 import {Entity, FunctionPropertyNames} from "@subql/types";
 import assert from 'assert';
 
-import {
-    NFTTokenId,
-} from '../interfaces'
-
 
 
 
@@ -28,7 +24,7 @@ export class Bid implements Entity {
 
     public bidder: string;
 
-    public tokenIds?: NFTTokenId[];
+    public tokenIds?: string[];
 
 
     async save(): Promise<void>{

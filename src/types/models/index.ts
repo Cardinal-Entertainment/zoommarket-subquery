@@ -14,6 +14,8 @@ export {AuctionMaxTimeChanged} from "./AuctionMaxTimeChanged"
 
 export {ItemListed} from "./ItemListed"
 
+export {AuctionCards} from "./AuctionCards"
+
 export {Bid} from "./Bid"
 
 export {Settled} from "./Settled"

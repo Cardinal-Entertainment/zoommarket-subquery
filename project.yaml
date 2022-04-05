@@ -7,7 +7,7 @@ schema:
   file: ./schema.graphql
 network:
   genesisHash: "0x91bc6e169807aaa54802737e1c504b2577d4fafedd5a02c10293b1cd60e39527" # Genesis hash of Moonbase
-  endpoint: https://moonbase-alpha-api.bwarelabs.com/d6e703e6-a9d9-41bd-ab0a-5b96fae88395
+  endpoint: https://moonbeam-alpha.api.onfinality.io/rpc?apikey=52b88ee0-060a-4e8d-a172-a3a4911be386
   #endpoint: wss://moonbeam-alpha.api.onfinality.io/public-ws
   dictionary: "https://api.subquery.network/sq/subquery/moonbase-alpha-dictionary"
 
@@ -16,7 +16,7 @@ network:
 
 dataSources:
   - kind: substrate/Moonbeam
-    startBlock: 1896562
+    startBlock: 1921325
     processor:
       file: "./node_modules/@subql/contract-processors/dist/moonbeam.js"
       options:
